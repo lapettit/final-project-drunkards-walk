@@ -10,15 +10,17 @@
 package com.example;
 
 //importing the JMusic stuff
+import jm.JMC;
 import jm.music.data.*;
 import jm.util.*;
 
+import java.io.File;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
 
 //make sure this class name matches your file name, if not fix.
-public class App {
+public class App implements JMC{
 
 	static MelodyPlayer player; // play a midi sequence
 	static MidiFileToNotes midiNotes; // read a midi file
@@ -64,9 +66,6 @@ public class App {
 
 		playMelody();
 
-		// uncomment to debug your midi file
-		// this code MUST be commited when submitting unit tests or any code to github
-		// playMidiFileDebugTest(filePath);
 	}
 
 	// doing all the setup stuff
@@ -155,6 +154,20 @@ public class App {
 	public static void both2(){
 		testAndTrainMarkovGen();
 		testAndGenMarkovGen();
+	}
+
+	public static void saveToFile(){
+		Score s = new Score("JMDemo1 - Scale");	    
+		Part p = new Part("Flute", FLUTE, 0);
+		Phrase phr = new Phrase("Chromatic Scale", 0.0);
+		File newMidi = new File("newMidi.mid");
+		for(int i = 0; i < 12; i++){
+			float chance = (float) ((float) -1 + Math.random() + 1); 
+			Note n = new Note(C4 + chance, CROTCHET);
+			phr.addNote(n);
+		}
+
+
 	}
 	// plays the midi file using the player -- so sends the midi to an external
 	// synth such as Kontakt or a DAW like Ableton or Logic
