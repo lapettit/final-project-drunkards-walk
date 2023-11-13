@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
-
-
 public class MarkovChainGenerator<E> extends ProbabilityGenerator <E>{
 
 	ArrayList<ArrayList<Float>> transitionTable = new ArrayList<>();
