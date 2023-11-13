@@ -1,0 +1,34 @@
+{
+  "tests": [
+    {
+      "name": "Project 2 Project 1 Still Working Test",
+      "setup": "mvn -B package --file pom.xml",
+      "run": "java -jar target/demo-1.0-shaded.jar 2",
+      "input": "",
+      "output": "-----Probability Distribution-----\r\nData: -2147483648 | Probability: 0.018518518518518517\r\nData: 60 | Probability: 0.1111111111111111\r\nData: 62 | Probability: 0.3888888888888889\r\nData: 64 | Probability: 0.4074074074074074\r\nData: 67 | Probability: 0.07407407407407407\r\n------------\r\n-----Probability Distribution-----\r\nData: 0.5 | Probability: 0.037037037037037035\r\nData: 1.0 | Probability: 0.7777777777777778\r\nData: 1.5 | Probability: 0.037037037037037035\r\nData: 2.0 | Probability: 0.12962962962962962\r\nData: 4.0 | Probability: 0.018518518518518517\r\n------------\r\n-----Probability Distribution-----\r\nData: -2147483648 | Probability: 0.02\r\nData: 60 | Probability: 0.11\r\nData: 62 | Probability: 0.39\r\nData: 64 | Probability: 0.41\r\nData: 67 | Probability: 0.07\r\n------------\r\n-----Probability Distribution-----\r\nData: 0.5 | Probability: 0.04\r\nData: 1.0 | Probability: 0.78\r\nData: 1.5 | Probability: 0.04\r\nData: 2.0 | Probability: 0.13\r\nData: 4.0 | Probability: 0.02\r\n------------",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Project 2 Part 1 Training Test",
+      "setup": "mvn -B package --file pom.xml",
+      "run": "java -jar target/demo-1.0-shaded.jar 3",
+      "input": "",
+      "output": "-----Transition Table -----\r\n[-2147483648, 60, 62, 64, 67]\r\n[-2147483648] 0.0 0.0 1.0 0.0 0.0 \r\n[60] 0.2 0.0 0.8 0.0 0.0 \r\n[62] 0.0 0.2857142857142857 0.2857142857142857 0.42857142857142855 0.0 \r\n[64] 0.0 0.0 0.45454545454545453 0.45454545454545453 0.09090909090909091 \r\n[67] 0.0 0.0 0.0 0.5 0.5 \r\n\r\n------------\r\n-----Transition Table -----\r\n[0.5, 1.0, 1.5, 2.0, 4.0]\r\n[0.5] 0.0 1.0 0.0 0.0 0.0 \r\n[1.0] 0.0 0.7857142857142857 0.023809523809523808 0.16666666666666666 0.023809523809523808 \r\n[1.5] 1.0 0.0 0.0 0.0 0.0 \r\n[2.0] 0.0 0.8571428571428571 0.14285714285714285 0.0 0.0 \r\n[4.0] 0.0 0.0 0.0 0.0 0.0 \r\n\r\n------------",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Project 2 Part 2 Generation Test",
+      "setup": "mvn -B package --file pom.xml",
+      "run": "java -jar target/demo-1.0-shaded.jar 4",
+      "input": "",
+      "output": "-----Transition Table -----\r\n[-2147483648, 60, 62, 64, 67]\r\n[-2147483648] 0 0 1 0 0 \r\n[60] 0.2 0 0.8 0 0 \r\n[62] 0 0.29 0.29 0.43 0 \r\n[64] 0 0 0.45 0.45 0.09 \r\n[67] 0 0 0 0.5 0.5 \r\n\r\n------------\r\n-----Transition Table -----\r\n[0.5, 1.0, 1.5, 2.0, 4.0]\r\n[0.5] 0 1 0 0 0 \r\n[1.0] 0 0.79 0.02 0.17 0.02 \r\n[1.5] 1 0 0 0 0 \r\n[2.0] 0 0.86 0.14 0 0 \r\n[4.0] 0.04 0.78 0.04 0.13 0.02 \r\n\r\n------------",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    }
+  ]
+}

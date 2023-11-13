@@ -1,0 +1,15 @@
+{
+    "java.project.sourcePaths": [
+        "src",
+        "mid"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+    ],
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "main"
+    ],
+    "maven.view": "flat",
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
