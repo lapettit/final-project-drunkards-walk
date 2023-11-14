@@ -1,10 +1,10 @@
 /*
  * c2017-2023 Courtney Brown 
- * Class: Project 2 Template
+ * Class: Final Project - Drunkards Walk
  * Lucie Pettit
  * CRCP3315 001
- * 9/26/23
- * Description: This is a template for the project 2 code, which is an implementation of a Markov chain of order 1
+ * 11/14/23
+ * Description: This is a drunken's walk prototype, which progresses the notes of a melody by +1, -1, or not at all randomly
  */
 
 package com.example;

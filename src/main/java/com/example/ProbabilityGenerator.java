@@ -1,5 +1,5 @@
 /*
- * c2017-2023 Courtney Brown (NOTE: you'll have to change the name and give me a bit of credit!)
+ * c2017-2023 Lucie Pettit (NOTE: you'll have to change the name and give me a bit of credit!)
  * 
  * Class: ProbabliityGenerator
  * 
