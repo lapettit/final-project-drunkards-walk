@@ -63,8 +63,8 @@ public class App implements JMC{
 			both2();
 		}
 
-		playMelody();
-		saveToFile();
+		//playMelody();
+		//saveToFile();
 
 	}
 
@@ -72,11 +72,13 @@ public class App implements JMC{
 		ArrayList<Integer> pitches = midiNotes.getPitchArray(); 
 		ArrayList<Double> rhythms = midiNotes.getRhythmArray(); 
 		Score s = new Score("JMDemo1 - Scale");	    
-		Part p = new Part("Flute", FLUTE, 0);
+		Part p = new Part("Piano", PIANO, 0);
 		Phrase phr = new Phrase("Chromatic Scale", 0.0);
-		for(int i = 0; i < 12; i++){
+		int i = 0;
+		while ((i != pitches.size()) || (i != rhythms.size())){
 			Note n = new Note(pitches.get(i), rhythms.get(i));
 			phr.addNote(n);
+			i++;
 		}
 		p.add(phr);
 		s.add(p);
@@ -170,8 +172,6 @@ public class App implements JMC{
 		testAndTrainMarkovGen();
 		testAndGenMarkovGen();
 	}
-
-
 
 	// plays the midi file using the player -- so sends the midi to an external
 	// synth such as Kontakt or a DAW like Ableton or Logic
