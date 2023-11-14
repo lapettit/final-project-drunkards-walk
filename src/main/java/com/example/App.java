@@ -63,8 +63,8 @@ public class App implements JMC{
 			both2();
 		}
 
-		//playMelody();
-		//saveToFile();
+		playMelody();
+		saveToFile();
 
 	}
 
@@ -76,7 +76,22 @@ public class App implements JMC{
 		Phrase phr = new Phrase("Chromatic Scale", 0.0);
 		int i = 0;
 		while ((i != pitches.size()) || (i != rhythms.size())){
-			Note n = new Note(pitches.get(i), rhythms.get(i));
+			Note n;
+			float chance = (float) ((Math.random() * 2));
+			if (chance > .5){
+				if (((i + 1) >= pitches.size()) || ((i + 1) >= rhythms.size())){
+					n = new Note(pitches.get(i), rhythms.get(i));
+				}
+				else {
+					n = new Note(pitches.get(i+1), rhythms.get(i+1));
+				}
+			}
+			if (chance < .5){
+				n = new Note(pitches.get(i-1), rhythms.get(i-1));
+			}
+			else{
+				n = new Note(pitches.get(i), rhythms.get(i));
+			}
 			phr.addNote(n);
 			i++;
 		}
