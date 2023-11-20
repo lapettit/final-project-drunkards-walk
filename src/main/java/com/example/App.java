@@ -13,6 +13,7 @@ package com.example;
 import jm.JMC;
 import jm.music.data.*;
 import jm.util.*;
+import java.util.*;
 
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
@@ -63,7 +64,7 @@ public class App implements JMC{
 			both2();
 		}
 
-		playMelody();
+		//playMelody();
 		saveToFile();
 
 	}
@@ -74,20 +75,31 @@ public class App implements JMC{
 		Score s = new Score("JMDemo1 - Scale");	    
 		Part p = new Part("Piano", PIANO, 0);
 		Phrase phr = new Phrase("Chromatic Scale", 0.0);
+		Scanner input = new Scanner(System.in);
 		int i = 0;
+
+		System.out.println("Enter chance of randomness (float): ");
+		float chance = input.nextFloat();
+		System.out.println("Enter the skip amount (int): ");
+		int skip = input.nextInt();
+		
 		while ((i != pitches.size()) || (i != rhythms.size())){
 			Note n;
-			float chance = (float) ((Math.random() * 2));
 			if (chance > .5){
-				if (((i + 1) >= pitches.size()) || ((i + 1) >= rhythms.size())){
+				if (((i + skip) >= pitches.size()) || ((i + skip) >= rhythms.size())){
 					n = new Note(pitches.get(i), rhythms.get(i));
 				}
 				else {
-					n = new Note(pitches.get(i+1), rhythms.get(i+1));
+					n = new Note(pitches.get(i+skip), rhythms.get(i+skip));
 				}
 			}
-			if (chance < .5){
-				n = new Note(pitches.get(i-1), rhythms.get(i-1));
+			else if (chance < .5){
+				if ((i - skip) <= 0){
+					n = new Note(pitches.get(i), rhythms.get(i));
+				}
+				else{
+					n = new Note(pitches.get(i-skip), rhythms.get(i-skip));
+				}
 			}
 			else{
 				n = new Note(pitches.get(i), rhythms.get(i));
@@ -95,6 +107,7 @@ public class App implements JMC{
 			phr.addNote(n);
 			i++;
 		}
+		input.close();
 		p.add(phr);
 		s.add(p);
 		Write.midi(s, "newMidi.mid");
