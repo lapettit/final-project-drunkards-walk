@@ -4,7 +4,8 @@
  * Lucie Pettit
  * CRCP3315 001
  * 11/14/23
- * Description: This is a drunken's walk prototype, which progresses the notes of a melody by +1, -1, or not at all randomly
+ * Description: This is a drunken's walk prototype, which progresses the notes of a melody by a skip amount chosen by the user 
+ * or not at all randomly
  */
 
 package com.example;
@@ -19,7 +20,6 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
 
-//make sure this class name matches your file name, if not fix.
 public class App implements JMC{
 
 	static MelodyPlayer player; // play a midi sequence
@@ -29,9 +29,8 @@ public class App implements JMC{
 	//make cross-platform
 	static FileSystem sys = FileSystems.getDefault();
 
-	//the getSeperator() creates the appropriate back or forward slash based on the OS in which it is running -- OS X & Windows use same code :) 
-	static String filePath = "mid"  + sys.getSeparator() +  "MaryHadALittleLamb.mid"; // path to the midi file -- you can change this to your file
-															// location/name
+	//the getSeperator() creates the appropriate back or forward slash based on the OS in which it is running 
+	static String filePath = "mid"  + sys.getSeparator() +  "MaryHadALittleLamb.mid"; // path to the midi file
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -40,31 +39,28 @@ public class App implements JMC{
 		int test = Integer.parseInt(args[0]);
 
 		// setup the melody player
-		// uncomment below when you are ready to test or present sound output
-		// make sure that it is commented out for your final submit to github (eg. when
-		// pushing)
 		setup();
 
-		if (test == 0){
+		if (test == 0){ //prob train test
 			testAndTrainProbGen();
 		}
-		else if (test == 1){
+		else if (test == 1){ //prob generate test
 			testAndGenProbGen();
 		}
-		else if (test == 2){
+		else if (test == 2){ //both prob unit tests
 			both1();
 		}
-		else if (test == 3){
+		else if (test == 3){ //markov train test
 			testAndTrainMarkovGen();
 		}
-		else if (test == 4){
+		else if (test == 4){ //markov generate test
 			testAndGenMarkovGen();
 		}
-		else if (test == 5){
+		else if (test == 5){ //both markov unit tests
 			both2();
 		}
 
-		//playMelody();
+		playMelody();
 		saveToFile();
 
 	}
@@ -72,21 +68,21 @@ public class App implements JMC{
 	public static void saveToFile(){
 		ArrayList<Integer> pitches = midiNotes.getPitchArray(); 
 		ArrayList<Double> rhythms = midiNotes.getRhythmArray(); 
-		Score s = new Score("JMDemo1 - Scale");	    
-		Part p = new Part("Piano", PIANO, 0);
-		Phrase phr = new Phrase("Chromatic Scale", 0.0);
-		Scanner input = new Scanner(System.in);
+		Score s = new Score("JMDemo1 - Scale"); // new scale
+		Part p = new Part("Piano", PIANO, 0); // instrument
+		Phrase phr = new Phrase("Chromatic Scale", 0.0); // new phrase for scale
+		Scanner input = new Scanner(System.in); // user input
 		int i = 0;
 
-		System.out.println("Enter chance of randomness (float): ");
+		System.out.println("Enter chance of randomness (float): "); // chance of skip happening
 		float chance = input.nextFloat();
-		System.out.println("Enter the skip amount (int): ");
+		System.out.println("Enter the skip amount (int): "); // how much skip?
 		int skip = input.nextInt();
 		
 		while ((i != pitches.size()) || (i != rhythms.size())){
 			Note n;
 			if (chance > .5){
-				if (((i + skip) >= pitches.size()) || ((i + skip) >= rhythms.size())){
+				if (((i + skip) >= pitches.size()) || ((i + skip) >= rhythms.size())){ // to prevent skip from going beyond scale
 					n = new Note(pitches.get(i), rhythms.get(i));
 				}
 				else {
@@ -94,7 +90,7 @@ public class App implements JMC{
 				}
 			}
 			else if (chance < .5){
-				if ((i - skip) <= 0){
+				if ((i - skip) <= 0){ // to prevent skip from going below scale
 					n = new Note(pitches.get(i), rhythms.get(i));
 				}
 				else{
@@ -107,7 +103,7 @@ public class App implements JMC{
 			phr.addNote(n);
 			i++;
 		}
-		input.close();
+		input.close(); // close input to prevent errors
 		p.add(phr);
 		s.add(p);
 		Write.midi(s, "newMidi.mid");
@@ -116,17 +112,14 @@ public class App implements JMC{
 	// doing all the setup stuff
 	public static void setup() {
 
-		// playMidiFile(filePath); //use to debug -- this will play the ENTIRE file --
-		// use ONLY to check if you have a valid path & file & it plays
-		// it will NOT let you know whether you have opened file to get the data in the
-		// form you need for the assignment
+		// playMidiFile(filePath); //use to debug 
 
 		midiSetup(filePath);
 	}
 
 	public static void testAndTrainProbGen(){
-		ProbabilityGenerator<Integer> pitchgen = new ProbabilityGenerator<Integer>();
-		ProbabilityGenerator<Double> rhythmgen = new ProbabilityGenerator<Double>();
+		ProbabilityGenerator<Integer> pitchgen = new ProbabilityGenerator<Integer>(); // pitches
+		ProbabilityGenerator<Double> rhythmgen = new ProbabilityGenerator<Double>(); // rhythms
 
 		pitchgen.train(midiNotes.getPitchArray());
 		rhythmgen.train(midiNotes.getRhythmArray());
@@ -135,9 +128,9 @@ public class App implements JMC{
 		rhythmgen.printProbabilityDistribution(false);
 	}
 	public static void testAndGenProbGen(){
-		ProbabilityGenerator<Integer> melpitch = new ProbabilityGenerator<Integer>();
+		ProbabilityGenerator<Integer> melpitch = new ProbabilityGenerator<Integer>(); // pitches
 		ProbabilityGenerator<Integer> probpitch = new ProbabilityGenerator<>();
-		ProbabilityGenerator<Double> melrhythm = new ProbabilityGenerator<>();
+		ProbabilityGenerator<Double> melrhythm = new ProbabilityGenerator<>(); // rhythms
 		ProbabilityGenerator<Double> probrhythm = new ProbabilityGenerator<Double>();
 
 		melpitch.train(midiNotes.getPitchArray());
@@ -161,8 +154,8 @@ public class App implements JMC{
 	}
 
 	public static void testAndTrainMarkovGen(){
-		MarkovChainGenerator<Integer> pitchgen = new MarkovChainGenerator<Integer>();
-		MarkovChainGenerator<Double> rhythmgen = new MarkovChainGenerator<Double>();
+		MarkovChainGenerator<Integer> pitchgen = new MarkovChainGenerator<Integer>(); // pitches
+		MarkovChainGenerator<Double> rhythmgen = new MarkovChainGenerator<Double>(); // rhythms
 
 		pitchgen.train(midiNotes.getPitchArray());
 		rhythmgen.train(midiNotes.getRhythmArray());
@@ -172,12 +165,12 @@ public class App implements JMC{
 	}
 
 	public static void testAndGenMarkovGen(){
-		MarkovChainGenerator<Integer> melpitch = new MarkovChainGenerator<Integer>();
+		MarkovChainGenerator<Integer> melpitch = new MarkovChainGenerator<Integer>(); // melody pitches/rhythms
 		MarkovChainGenerator<Double> melrhythm = new MarkovChainGenerator<>();
-		MarkovChainGenerator<Integer> ttpitch = new MarkovChainGenerator<>();
+		MarkovChainGenerator<Integer> ttpitch = new MarkovChainGenerator<>(); // transition table pitches/rhythms
 		MarkovChainGenerator<Double> ttrhythm = new MarkovChainGenerator<Double>();
 
-		melpitch.train(midiNotes.getPitchArray()); //melgen output correct
+		melpitch.train(midiNotes.getPitchArray());
         for (int i = 0; i < 100000; i++){
                  
 			ArrayList<Integer> song = melpitch.generate(20);
