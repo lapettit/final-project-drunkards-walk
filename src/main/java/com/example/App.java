@@ -69,7 +69,7 @@ public class App implements JMC{
 		ArrayList<Integer> pitches = midiNotes.getPitchArray(); 
 		ArrayList<Double> rhythms = midiNotes.getRhythmArray(); 
 		Score s = new Score("JMDemo1 - Scale"); // new scale
-		Part p = new Part("Piano", PIANO, 0); // instrument
+		Part p = new Part("Electric Piano", ELECTRIC_PIANO, 0); // instrument
 		Phrase phr = new Phrase("Chromatic Scale", 0.0); // new phrase for scale
 		Scanner input = new Scanner(System.in); // user input
 		int i = 0;
