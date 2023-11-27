@@ -107,6 +107,7 @@ public class App implements JMC{
 		p.add(phr);
 		s.add(p);
 		Write.midi(s, "newMidi.mid");
+
 	}
 
 	// doing all the setup stuff
