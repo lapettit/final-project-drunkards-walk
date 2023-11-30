@@ -60,8 +60,8 @@ public class App implements JMC{
 			both2();
 		}
 
-		playMelody();
-		saveToFile();
+		//playMelody();
+		//saveToFile(); // uncomment to activate drunkard's walk
 
 	}
 
@@ -74,9 +74,9 @@ public class App implements JMC{
 		Scanner input = new Scanner(System.in); // user input
 		int i = 0;
 
-		System.out.println("Enter chance of randomness (float): "); // chance of skip happening
+		System.out.println("Enter chance of randomness (float between 0 and 1): "); // chance of skip happening
 		float chance = input.nextFloat();
-		System.out.println("Enter the skip amount (int): "); // how much skip?
+		System.out.println("Enter the skip amount (int between 1 and 3): "); // how much skip?
 		int skip = input.nextInt();
 		
 		while ((i != pitches.size()) || (i != rhythms.size())){
